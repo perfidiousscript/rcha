@@ -1,6 +1,8 @@
 #! ruby
 require "optparse"
 require "open3"
+require "json"
+require_relative "edrtest_process.rb"
 
 outputJSON = {}
 
@@ -15,7 +17,7 @@ options[:address] = nil
 OptionParser.new do |opts|
   opts.banner = "Usage: edrtest.rb [options]"
 
-  opts.on("-p [process]", "--process [process]", "Run the passed process") do |p|
+  opts.on("-p [process name]", "--process [process name]", "Run the passed process") do |p|
     options[:process] = true
     options[:process_name] = p
   end
@@ -31,32 +33,14 @@ OptionParser.new do |opts|
   end
 end.parse!
 
-p "options: #{options}"
-p "ARGV[0]: #{ARGV[0]}"
-
-pid = Process.fork do
-  stdout, status = Open3.capture2('ls')
-  sleep 1
+if options[:process]
+  outputJSON[:process] = run_process(options[:process_name])
 end
 
-psOut, psStatus = Open3.capture2("ps", "-p #{pid}", "-O", "lstart,ruser")
+if options[:create_file]
+end
 
-splitPSOut = psOut.to_s.split()
+if options[:network_connection]
+end
 
-outputJSON["process"] = {
-  id: splitPSOut[7],
-  start_time: {
-    day: splitPSOut[8],
-    month: splitPSOut[9],
-    date: splitPSOut[10],
-    time: splitPSOut[11],
-    year: splitPSOut[12],
-  },
-  username: splitPSOut[13],
-  command_line: splitPSOut[18],
-  #process_name: 'ls',
-}
-
-puts "output json: #{outputJSON}"
-
-Process.wait
+p outputJSON
