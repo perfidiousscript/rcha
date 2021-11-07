@@ -2,7 +2,11 @@
 require "optparse"
 require "open3"
 require "json"
+require "fileutils"
+require "time"
 require_relative "edrtest_process.rb"
+require_relative "edrtest_network.rb"
+require_relative "edrtest_file.rb"
 
 outputJSON = {}
 
@@ -38,9 +42,13 @@ if options[:process]
 end
 
 if options[:create_file]
+  outputJSON[:file] = create_file()
 end
 
 if options[:network_connection]
+  outputJSON[:network] = network_connection()
 end
 
-p outputJSON
+t = Time.now.iso8601
+file_name = "edr_test_output_#{t}.txt"
+File.open(file_name, mode="w"){|f| f.write(outputJSON)}

@@ -1,6 +1,9 @@
 require "open3"
 
-def run_process(process_name)
+def run_process(process)
+
+  process_name = process || "ls"
+
   pid = Process.fork do
     stdout, status = Open3.capture2(process_name)
     sleep 1
