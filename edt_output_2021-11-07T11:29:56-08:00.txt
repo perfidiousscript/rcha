@@ -1,1 +1,0 @@
-{:process=>{:id=>"62184", :start_time=>{:day=>"Sun", :month=>"Nov", :date=>"7", :time=>"11:29:55", :year=>"2021"}, :username=>"samuelmoss", :command_line=>"./edrtest.rb", :process_name=>"ls"}, :file=>{:works=>true}, :network=>{:works=>true}}

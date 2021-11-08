@@ -26,9 +26,10 @@ OptionParser.new do |opts|
     options[:process_name] = p
   end
 
-  opts.on("-f [filepath]", "--file [filepath]", "Create, modify and delete a file at the given path") do |p|
+  opts.on("-f [filepath] [filetype]", "--file [filepath],[filetype]", Array, "Create, modify and delete a file at the given path") do |p|
     options[:create_file] = true
-    options[:file_path] = p
+    options[:file_path] = p[0]
+    options[:file_type] = p[1] || 'txt'
   end
 
   opts.on("-n [address]", "--network [address]", "Open connection and transmit data to provided path") do |p|
@@ -42,7 +43,7 @@ if options[:process]
 end
 
 if options[:create_file]
-  outputJSON[:file] = create_file()
+  outputJSON[:file] = create_file(options[:file_path], options[:file_type])
 end
 
 if options[:network_connection]

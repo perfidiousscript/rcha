@@ -30,7 +30,7 @@ json format
      path: '/path/to/file',
      activity_type: 'delete',
      username: 'sammoss',
-     process_name: 'touch',
+     process_name: 'rm',
      command_line: 'example',
      id: '4567'
    },
