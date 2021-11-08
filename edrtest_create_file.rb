@@ -24,7 +24,7 @@ def create_file(file_path = "", file_type)
     activity_type: 'create',
     username: splitPSOut[13],
     command_line: splitPSOut[18],
-    process_name: 'touch',
+    process_name: splitPSOut[17],
   }
 
   Process.wait

@@ -4,6 +4,7 @@ require "open3"
 require "json"
 require "fileutils"
 require "time"
+require "net/http"
 require_relative "edrtest_process.rb"
 require_relative "edrtest_network.rb"
 require_relative "edrtest_create_file.rb"
@@ -24,18 +25,18 @@ options[:address] = nil
 OptionParser.new do |opts|
   opts.banner = "Usage: edrtest.rb [options]"
 
-  opts.on("-p [process name]", "--process [process name]", "Run the passed process") do |p|
+  opts.on("-p [process name]", "--process [process name]", "Run the passed process, default to 'ls'") do |p|
     options[:process] = true
     options[:process_name] = p
   end
 
-  opts.on("-f [filepath] [filetype]", "--file [filepath],[filetype]", Array, "Create, modify and delete a file at the given path") do |p|
+  opts.on("-f [filepath],[filetype]", "--file [filepath],[filetype]", Array, "Create, modify and delete a file at the given path") do |p|
     options[:create_file] = true
     options[:file_path] = p[0]
     options[:file_type] = p[1] || 'txt'
   end
 
-  opts.on("-n [address]", "--network [address]", "Open connection and transmit data to provided path") do |p|
+  opts.on("-n [address]", "--network [address]", "Open connection and transmit data to provided URL") do |p|
     options[:network_connection] = true
     options[:address] = p
   end

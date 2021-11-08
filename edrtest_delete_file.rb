@@ -22,7 +22,7 @@ def delete_file(file_path)
     activity_type: 'delete',
     username: splitPSOut[13],
     command_line: splitPSOut[18],
-    process_name: 'rm',
+    process_name: splitPSOut[17],
   }
 
   Process.wait

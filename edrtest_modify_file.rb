@@ -23,7 +23,7 @@ def modify_file(file_path)
     activity_type: 'modify',
     username: splitPSOut[13],
     command_line: splitPSOut[18],
-    process_name: 'touch',
+    process_name: splitPSOut[17],
   }
 
   Process.wait
