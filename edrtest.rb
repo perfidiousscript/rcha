@@ -6,11 +6,14 @@ require "fileutils"
 require "time"
 require_relative "edrtest_process.rb"
 require_relative "edrtest_network.rb"
-require_relative "edrtest_file.rb"
+require_relative "edrtest_create_file.rb"
+require_relative "edrtest_modify_file.rb"
+require_relative "edrtest_delete_file.rb"
 
 outputJSON = {}
 
 options = {}
+file_name = ""
 options[:process] = false
 options[:process_name] = nil
 options[:create_file] = false
@@ -43,7 +46,12 @@ if options[:process]
 end
 
 if options[:create_file]
-  outputJSON[:file] = create_file(options[:file_path], options[:file_type])
+  file_name, create_data = create_file(options[:file_path], options[:file_type])
+  modify_data = modify_file(file_name)
+  delete_data = delete_file(file_name)
+  outputJSON[:create_file] = create_data
+  outputJSON[:modify_file] = modify_data
+  outputJSON[:delete_file] = delete_data
 end
 
 if options[:network_connection]
@@ -52,4 +60,4 @@ end
 
 t = Time.now.iso8601
 file_name = "edr_test_output_#{t}.txt"
-File.open(file_name, mode="w"){|f| f.write(outputJSON)}
+File.open(file_name, mode="w"){|f| f.write(JSON.pretty_generate(outputJSON))}
