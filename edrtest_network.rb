@@ -20,8 +20,8 @@ def network_connection()
       id: Process.pid,
       timestamp: t,
       username: ENV['USER'],
-      # command_line: splitPSOut[18],
-      # process_name: splitPSOut[17],
+      command_line: "./edrtest.rb",
+      process_name: 'ruby',
       protocol: 'UDP',
         destination:{
           port: destination_port,

@@ -12,7 +12,6 @@ require_relative "edrtest_modify_file.rb"
 require_relative "edrtest_delete_file.rb"
 
 outputJSON = {}
-
 options = {}
 file_name = ""
 options[:process] = false
