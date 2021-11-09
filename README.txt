@@ -1,3 +1,6 @@
+To Run/Help/show all flags:
+'$ ./edrtest.rb -h'
+
 
 For the assignment I wrote a basic ruby cli.
 It is called by passing 'edrtest.rb' and then flags for the desired action.
