@@ -3,18 +3,18 @@ require 'etc'
 
 def network_connection()
     t = Time.now.iso8601
-    destination_ip = "127.0.0.1"
-    destination_port = "3000"
+
     bytes_sent = 0
     network_data = {}
 
-  u1 = UDPSocket.new
-  u1.bind(destination_ip, destination_port)
-  u2 = UDPSocket.new
-  u2.connect(destination_ip, destination_port)
-  bytes_sent = u2.send "a bunch of test information", 0
-  source_information = u1.recvfrom(1000)
-
+    destination_ip = "127.0.0.1"
+    destination_port = "3001"
+    u1 = UDPSocket.new
+    u1.bind(destination_ip, destination_port)
+    u2 = UDPSocket.new
+    u2.connect(destination_ip, destination_port)
+    bytes_sent = u2.send "a bunch of test information", 0
+    source_information = u1.recvfrom(1000)
 
   network_data = {
       id: Process.pid,

@@ -24,20 +24,28 @@ options[:address] = nil
 OptionParser.new do |opts|
   opts.banner = "Usage: edrtest.rb [options]"
 
+  opts.on("-a", "--all", "Use defaults to run a process, create/modify/delete file and make network call") do |p|
+    options[:process] = true
+    options[:create_file] = true
+    options[:file_path] = ''
+    options[:file_type] = 'txt'
+    options[:network_connection] = true
+    options[:address] = "127.0.0.1"
+  end
+
   opts.on("-p [process name]", "--process [process name]", "Run the passed process, default to 'ls'") do |p|
     options[:process] = true
     options[:process_name] = p
   end
 
-  opts.on("-f [filepath],[filetype]", "--file [filepath],[filetype]", Array, "Create, modify and delete a file at the given path") do |p|
+  opts.on("-f [relative filepath],[filetype]", "--file [relative filepath],[filetype]", Array, "Create, modify and delete a file at the given relative file path") do |p|
     options[:create_file] = true
-    options[:file_path] = p[0]
+    options[:file_path] = p[0] || ''
     options[:file_type] = p[1] || 'txt'
   end
 
-  opts.on("-n [address]", "--network [address]", "Open connection and transmit data to provided URL") do |p|
+  opts.on("-n [address]", "--network", "Open connection and transmit data") do |p|
     options[:network_connection] = true
-    options[:address] = p
   end
 end.parse!
 
